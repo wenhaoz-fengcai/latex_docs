@@ -1,20 +1,67 @@
+% COMMANDS:
+% - bigmid: Dynamically sized mid bar.
+% - spacerule: add a centered dashed line with space above and below
+% - \dbox{#1}: Adds a nicely formatted slightly grey box around #1
+% - \begin{dproof} ... \end{dproof}: A nicely formatted proof. Use \qedhere to place qed
+% - \ddef{#1}{#2}: Makes a definition (and counts defs). #1 goes inside parens at beginning, #2 is actual def.
+% - \begin{dtable}{#1} ... \end{dtable}: Makes a minimalist table. #1 is the alignment, for example: {clrr} would be a 4 column, center left right right table.
+
 % Dynamically sized mid bar.
 \newcommand{\bigmid}{\mathrel{\Big|}}
 
 % ---- Colors and Notes ----
-\definecolor{dblue}{RGB}{102, 120, 173}
-\definecolor{dgreen}{RGB}{118, 167, 125}
-\definecolor{dred}{RGB}{198, 113, 113}
+\definecolor{dblue}{RGB}{140, 212, 251}
+\definecolor{dlblue}{RGB}{79, 142, 230}
+\definecolor{dgray}{RGB}{205, 204, 204}
+\definecolor{dred}{RGB}{239, 133, 125}
 \definecolor{dorange}{RGB}{230, 169, 132}
-\definecolor{dtan}{RGB}{221, 215, 200}
-\definecolor{dgray}{RGB}{94, 94, 94}
-\definecolor{ddgray}{RGB}{46, 49, 49}
 
-% Lights
-\definecolor{dlblue}{RGB}{169, 193, 219}
-\definecolor{dlgreen}{RGB}{154, 195, 157}
-\definecolor{dyellow}{RGB}{246, 240, 223}
+% TODO
+\newcounter{WenhaoDefCounterTodo}
+\setcounter{WenhaoDefCounterTodo}{1}
 
+\newcommand{\remark}[2]
+{
+\begin{mdframed}[roundcorner=1pt, backgroundcolor=dblue]
+\vspace{1mm}
+{\bf Remark \theWenhaoDefCounterTodo} {\it #1}
+\stepcounter{WenhaoDefCounterTodo}
+\end{mdframed}
+}
+
+% NOTE
+\newcounter{WenhaoDefCounterNote}
+\setcounter{WenhaoDefCounterNote}{1}
+
+\newcommand{\note}[2]
+{
+\begin{mdframed}[roundcorner=1pt, backgroundcolor=dred]
+\vspace{1mm}
+{\bf Note \theWenhaoDefCounterNote} {\it #1}
+\stepcounter{WenhaoDefCounterNote}
+\end{mdframed}
+}
+
+% Idea
+\newcounter{WenhaoDefCounterIdea}
+\setcounter{WenhaoDefCounterIdea}{1}
+
+\newcommand{\idea}[2]
+{
+\begin{mdframed}[roundcorner=1pt, backgroundcolor=dorange]
+\vspace{1mm}
+{\bf Idea \theWenhaoDefCounterIdea} {\it #1}
+\stepcounter{WenhaoDefCounterIdea}
+\end{mdframed}
+}
+
+% theorems
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{assumption}{Assumption}
+\newtheorem{mov}{Motivation}
 
 % URL
 \newcommand{\durl}[1]{\textcolor{dblue}{\underline{\url{#1}}}}
@@ -31,8 +78,6 @@
 \newcommand{\ubr}[1]{\underbrace{#1}}
 \newcommand{\uset}[2]{\underset{#1}{#2}}
 \newcommand{\eps}{\varepsilon}
-\newcommand{\KL}[2]{D_{\text{KL}}\left(#1 \mid \mid #2\right)}
-\newcommand{\bKL}[2]{D_{\text{KL}}\left(#1 \bigmid \bigmid #2\right)}
 
 % Typical limit:
 \newcommand{\nlim}{\underset{n \rightarrow \infty}{\lim}}
@@ -47,24 +92,15 @@
 \newcommand{\indic}{\mathbbm{1}}
 \newcommand{\bE}{\mathbb{E}}
 
-\newcommand{\longra}{\longrightarrow}
-\newcommand{\longla}{\longleftarrow}
 \newcommand{\ra}{\rightarrow}
 \newcommand{\la}{\leftarrow}
-
-% argmin, argmax.
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
-
-% Quick Matrix.
-\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
 
 % ---- Figures, Boxes, Theorems, Etc. ----
 
 % Basic Image
-\newcommand{\img}[2]{
+\newcommand{\img}[1]{
 \begin{center}
-\includegraphics[scale=#2]{#1}
+\includegraphics[\width=0.6\textwidth]{#1}
 \end{center}}
 
 % Put a fancy box around things.
@@ -118,6 +154,9 @@
 {\begin{algorithm}\caption{#1}\begin{algorithmic}}
 {\end{algorithmic}\end{algorithm}}
 
+
+
+
 % Dave Table
 \newenvironment{dtable}[1]
 {\begin{figure}[h]
@@ -130,13 +169,5 @@
 % For numbering the last of an align*
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
-
-\newtheorem{assumption}{Assumption}
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{corollary}{Corollary}
-\newtheorem{claim}{Claim}
-\newtheorem{example}{Example}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
-\newtheorem{remark}{Remark}
-\newtheorem{theorem}{Theorem}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
